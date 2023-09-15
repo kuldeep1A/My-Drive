@@ -5,7 +5,7 @@ interface GithubAuth {
 }
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 interface xButton {
-    btnClass: string;
+    btnClass?: string;
     title: string;
-    onClick: () => void;
+    onClick?: () => void;
 }
