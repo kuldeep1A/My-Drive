@@ -16,7 +16,7 @@ export default function NavBar(){
                 
                 <div className={Styles.authBtn}>
                     {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
-                    {session ? <> <Image src={"https://avatars.githubusercontent.com/u/90776144?v=4"} className="rounded-xl" width={50} height={50} alt="logo" /> <Button onClick={() => signOut()} btnClass={'btn-primary'} title='Sign Out'/> </>: <Button onClick={() => signIn()} btnClass={'btn-primary'} title='Sign In'/>}
+                    {session ? <> <Image src={`${session?.user.image}`} className="rounded-xl" width={50} height={50} alt="logo" /> <Button onClick={() => signOut()} btnClass={'btn-primary'} title='Sign Out'/> </>: <Button onClick={() => signIn()} btnClass={'btn-primary'} title='Sign In'/>}
                 </div>
             </div>
             {session ? 
