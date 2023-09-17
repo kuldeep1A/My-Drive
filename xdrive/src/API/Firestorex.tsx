@@ -3,7 +3,7 @@ import {collection, addDoc } from "firebase/firestore";
 
 const files = collection(database, 'files');
 
-export const Firestorex = async (imageLink: string) => {
+export const addFiles = async (imageLink: string) => {
     try {
         await addDoc(files,  {
             imageLink: imageLink

@@ -9,3 +9,8 @@ interface xButton {
     title: string;
     onClick?: () => void;
 }
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+interface ArrayType {
+    // eslint-disable-next-line @typescript-eslint/ban-types
+    map: Function;
+}

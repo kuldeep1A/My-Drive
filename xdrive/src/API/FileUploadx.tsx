@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { storage } from "@/firebaseConfig";
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
-import { Firestorex } from "@/API/Firestorex";
+import { addFiles } from "@/API/Firestorex";
 let progress = 0;
 
 export default function FileUpload(file: any, setProgress: Function, setVisibleL: Function){
@@ -30,7 +30,7 @@ export default function FileUpload(file: any, setProgress: Function, setVisibleL
         () => {
             if (progress === 100) {
                 void getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                    void Firestorex(downloadURL);
+                    void addFiles(downloadURL);
                 })
             }
         }

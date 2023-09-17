@@ -1,0 +1,26 @@
+@import 'variables';
+
+@media screen and (max-width: $mobile) {
+  .All_Files {
+    grid-template-columns: auto !important;
+  }
+}
+
+@media screen and (max-width: $tablet) {
+  .All_Files {
+    grid-template-columns: auto auto !important;
+  }
+}
+
+@media screen and (max-width: $desktop) {
+  .All_Files {
+    grid-template-columns: auto auto auto auto !important;
+  }
+}
+
+@media screen and (max-width: $largeDesktop) {
+  .All_Files {
+    grid-template-columns: auto auto auto auto auto !important;
+  }
+}
+  

@@ -1,0 +1,21 @@
+@import 'media-queries';
+
+.imageLink {
+    width: auto;
+    height: auto;
+    object-fit: cover;
+}
+
+.file {
+    width: 300px;
+    height: 300px;
+}
+
+.All_Files {
+    width: 100%;
+    padding: 10px;
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    gap: 30px;
+    justify-content: center;
+}
