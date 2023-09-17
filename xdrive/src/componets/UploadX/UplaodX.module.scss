@@ -8,6 +8,11 @@
     top: -49px;
     left: 14px;
 }
-.radial-progress {
-    --value: 70%; /* Default value */
-}  
+
+.progressing {
+    display: inline-block;
+    position: absolute;
+    top: -11px;
+    left: 120px;
+    font-size: 15px;
+}
