@@ -1,3 +1,13 @@
 .main {
     padding: 50px;
 }
+
+.loading {
+    display: inline-block;
+    position: absolute;
+    top: -49px;
+    left: 14px;
+}
+.radial-progress {
+    --value: 70%; /* Default value */
+}  
