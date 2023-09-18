@@ -1,25 +1,30 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from "react";
 import styles from './UplaodX.module.scss'
 import Button from "../common/Button";
 import FileUpload  from "@/API/FileUploadx";
 import { addFolder } from "@/API/Firestorex";
 
-
-
-export default function UploadX() {
+export default function UploadX({parentId}: any) {
     
     const [isVisibleF, setVisibleF] = useState(false);
     const [isVisibleFol, setVisibleFol] = useState(false);
     const [isVisibleL, setVisibleL] = useState(false);
     const [folderName, setfolderName] = useState("");
     const [Progress, setProgress] = useState(0);
+    console.log("uploadx: ", parentId);
+    console.log("uploadx type: ", typeof(parentId));
+    
 
     const uploadFolder = () => {
         const folder = {
             folderName: folderName,
             isFolder: true,
             folderList: [],
+            parentId: parentId ?? "",
         }
+        console.log(folder);
         void addFolder(folder);
         setfolderName("");
         setVisibleFol(false);

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
 import styles from "./ShowFilesx.module.scss";
 import { FetchFiles } from "@/hooks/FetchFiles";
@@ -6,14 +8,19 @@ import { RiJavascriptLine } from "react-icons/ri";
 import { TbFileTypeHtml, TbFileTypeJsx } from "react-icons/tb";
 import { GrStatusUnknown } from "react-icons/gr";
 import { BsFolder, BsFiletypeExe, BsFiletypeXlsx, BsFiletypeCss, BsFiletypeMp3, BsFiletypeMp4, BsFiletypeDocx, BsFileTextFill, BsFiletypeJpg, BsFiletypePng, BsFiletypeGif, BsFiletypePdf } from "react-icons/bs"
+import { useRouter } from "next/router";
 
-export default function ShowFilesx() {
-    const { fileList } = FetchFiles();
-    console.log(fileList);
+export default function ShowFilesx({ parentId }: any) {
+    const { fileList } = FetchFiles(parentId);
+    const router = useRouter();
     
 
-    const OpenFile = (filelink: string) => {
-        window.open(filelink);  
+    const OpenFile = (filelink: string, isFolder: boolean, id: string, folderName: string) => {
+        if (!isFolder){
+            window.open(filelink);
+        } else if (isFolder){
+            void router.push(folderName === "" ? `/empty?id=${id}` : `/${folderName}?id=${id}`)
+        }
     }
     const CheckType = (fileName: string) => {
         if (fileName !== undefined) {
@@ -65,17 +72,16 @@ export default function ShowFilesx() {
     return (
         <div className={styles.All_Files}>
             {
-                fileList.map((file: {imageLink: "", fileName: "", isFolder: false, folderName: ""}) => {
-                    return (
-                        <>
-                        <div>
-                           <div className={styles.file} onClick={() => OpenFile(file.imageLink) }>
+                fileList.map((file: {imageLink: "", fileName: "", isFolder: false, folderName: "", id: ""}, index: number) => {
+                    const keyx = `${file.id}-${index}`;
+                    return ( 
+                        <div key={keyx}>
+                           {<div className={styles.file} onClick={() => OpenFile(file.imageLink, file.isFolder, file.id, file.folderName) }>
                                 {file.isFolder ? createFolder() : CheckType(file.fileName)}
                                 <div className={styles.filename}><div>{file.fileName || file.folderName}</div></div>
                                 {/* {file.imageLink === "" ? <></> : <Image className={styles.immageLink} src={file.imageLink} alt="icon" width={300} height={300} priority={true} /> } */}
-                           </div>
+                           </div>}
                         </div>
-                        </>
                     )
                 })
             }
