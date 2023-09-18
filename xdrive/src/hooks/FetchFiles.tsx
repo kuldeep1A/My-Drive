@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 
 const files = collection(database, "files");
 
+
 export const FetchFiles = () => {
     const [fileList, setFileList] = useState<ArrayType>([{}]);
 

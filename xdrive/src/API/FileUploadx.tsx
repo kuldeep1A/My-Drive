@@ -14,7 +14,6 @@ export default function FileUpload(file: any, setProgress: Function, setVisibleL
         "state_changed",
         (sanpshot)=> {
             progress = Math.round((sanpshot.bytesTransferred/sanpshot.totalBytes)*100);
-            console.log("progress: ", progress);
             if (progress === 100){
                 setVisibleL(false);
                 setProgress(progress);
@@ -30,7 +29,7 @@ export default function FileUpload(file: any, setProgress: Function, setVisibleL
         () => {
             if (progress === 100) {
                 void getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                    void addFiles(downloadURL);
+                    void addFiles(downloadURL, file.name);
                 })
             }
         }

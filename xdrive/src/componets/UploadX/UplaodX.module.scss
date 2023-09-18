@@ -5,14 +5,25 @@
 .loading {
     display: inline-block;
     position: absolute;
-    top: -49px;
-    left: 14px;
+    top: -7px;
+    left: 105px;
 }
 
 .progressing {
     display: inline-block;
     position: absolute;
     top: -11px;
-    left: 120px;
+    left: 80px;
     font-size: 15px;
+}
+.spinner {
+    animation: spin 2s linear infinite;
+}
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
