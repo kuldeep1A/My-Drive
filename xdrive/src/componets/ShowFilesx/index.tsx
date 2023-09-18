@@ -1,15 +1,16 @@
 import React from "react";
 import styles from "./ShowFilesx.module.scss";
 import { FetchFiles } from "@/hooks/FetchFiles";
-import Image from "next/image";
 import { FaJava, FaPython } from "react-icons/fa";
 import { RiJavascriptLine } from "react-icons/ri";
 import { TbFileTypeHtml, TbFileTypeJsx } from "react-icons/tb";
 import { GrStatusUnknown } from "react-icons/gr";
-import { BsFiletypeXlsx, BsFiletypeCss, BsFiletypeMp3, BsFiletypeMp4, BsFiletypeDocx, BsFileTextFill, BsFiletypeJpg, BsFiletypePng, BsFiletypeGif, BsFiletypePdf } from "react-icons/bs"
+import { BsFolder, BsFiletypeExe, BsFiletypeXlsx, BsFiletypeCss, BsFiletypeMp3, BsFiletypeMp4, BsFiletypeDocx, BsFileTextFill, BsFiletypeJpg, BsFiletypePng, BsFiletypeGif, BsFiletypePdf } from "react-icons/bs"
 
 export default function ShowFilesx() {
     const { fileList } = FetchFiles();
+    console.log(fileList);
+    
 
     const OpenFile = (filelink: string) => {
         window.open(filelink);  
@@ -50,23 +51,27 @@ export default function ShowFilesx() {
                     return <TbFileTypeJsx className={styles.icon} size={80} />
                 case "js":
                     return <RiJavascriptLine className={styles.icon} size={80} />
+                case "exe":
+                    return <BsFiletypeExe className={styles.icon} size={80} />
                 default:
                     return <GrStatusUnknown className={styles.icon} size={80} />;
             }
         }
-        
+    }
+    const createFolder = () => {
+        return <BsFolder className={styles.icon} size={80}/>
     }
    
     return (
         <div className={styles.All_Files}>
             {
-                fileList.map((file: {imageLink: "", fileName: ""}) => {
+                fileList.map((file: {imageLink: "", fileName: "", isFolder: false, folderName: ""}) => {
                     return (
                         <>
                         <div>
                            <div className={styles.file} onClick={() => OpenFile(file.imageLink) }>
-                                {CheckType(file.fileName)}
-                                <div className={styles.filename}><div>{file.fileName}</div></div>
+                                {file.isFolder ? createFolder() : CheckType(file.fileName)}
+                                <div className={styles.filename}><div>{file.fileName || file.folderName}</div></div>
                                 {/* {file.imageLink === "" ? <></> : <Image className={styles.immageLink} src={file.imageLink} alt="icon" width={300} height={300} priority={true} /> } */}
                            </div>
                         </div>

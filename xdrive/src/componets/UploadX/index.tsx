@@ -2,23 +2,39 @@ import React, { useState } from "react";
 import styles from './UplaodX.module.scss'
 import Button from "../common/Button";
 import FileUpload  from "@/API/FileUploadx";
+import { addFolder } from "@/API/Firestorex";
 
 
 
 export default function UploadX() {
     
     const [isVisibleF, setVisibleF] = useState(false);
+    const [isVisibleFol, setVisibleFol] = useState(false);
     const [isVisibleL, setVisibleL] = useState(false);
+    const [folderName, setfolderName] = useState("");
     const [Progress, setProgress] = useState(0);
+
+    const uploadFolder = () => {
+        const folder = {
+            folderName: folderName,
+            isFolder: true,
+            folderList: [],
+        }
+        void addFolder(folder);
+        setfolderName("");
+        setVisibleFol(false);
+    }
+    
     
     const uploadFile = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const file = event.target.files?.[0];        
+        const file = event.target.files?.[0];
         FileUpload(file, setProgress, setVisibleL);
     }
+    
 
     return (
         <div className={styles.main}>
-            <Button onClick={() => setVisibleF(!isVisibleF)} btnClass="btn-outline btn-success mb-2 mt-2" title="Upload file"/>
+            <Button onClick={() => {setVisibleF(!isVisibleF), setVisibleFol(false)} } btnClass="btn-outline btn-success mb-2 mt-2" title="Upload file"/>
             {isVisibleF ? 
                 <> 
                     <div className="relative inline-block">
@@ -42,7 +58,14 @@ export default function UploadX() {
                     </div>
                 </>
             : <></>  }
-            <Button btnClass="btn-outline btn-info mb-2 mt-2" title="Create a Folder"/>
+            <Button onClick={() => { setVisibleF(false), setVisibleFol(!isVisibleFol)}} btnClass="btn-outline btn-info mb-2 mt-2" title="Create Folder"/>
+            {
+                isVisibleFol ? 
+               <div className="inline-block ml-2.5 relative">
+                        <input type="text" value={folderName} onChange={(event) => setfolderName(event.target.value)} placeholder="Name" className="input input-bordered w-full max-w-xs" />
+                        <button onClick={() => uploadFolder()} className={`${styles.uploadBtn} absolute`}>+</button>
+               </div> : <></>
+            }
         </div>
     )
 }
