@@ -1,19 +1,19 @@
 /* eslint-disable @typescript-eslint/await-thenable */
 import { database } from "@/firebaseConfig";
 import { collection, addDoc, doc, setDoc } from "firebase/firestore";
-import { any } from "zod";
 
 const files = collection(database, 'files');
 const Empty_no = collection(database, 'empty_no');
 
 
-export const addFiles = async (imageLink: string, fileName: string, parentId: string) => {
+export const addFiles = async (imageLink: string, fileName: string, parentId: string, UserEmail: string | undefined | null) => {
     try {
         await addDoc(files, {
             imageLink: imageLink,
             fileName: fileName,
             isFolder: false,
             parentId: parentId ?? "",
+            UserEmail: UserEmail
         });
     } catch (error) {
         console.log(error);
@@ -26,6 +26,7 @@ export const addFolder = async (folder: {
     isFolder: boolean;
     folderList: object;
     parentId: string;
+    UserEmail: string | undefined | null;
 }) => {
     try {
         await addDoc(files, {
@@ -33,6 +34,7 @@ export const addFolder = async (folder: {
             isFolder: folder.isFolder,
             folderList: folder.folderList,
             parentId: folder.parentId,
+            UserEmail: folder.UserEmail,
         });
     } catch (error) {
         console.log(error);

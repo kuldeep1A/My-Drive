@@ -4,8 +4,10 @@ import Button from "../common/Button";
 import FileUpload  from "@/API/FileUploadx";
 import { addEmptyFolder, addFolder } from "@/API/Firestorex";
 import { FetchEmptyFolder } from "@/hooks/FetchEmptyFolder";
+import { useFetchSession } from "@/hooks/useFetchSession";
 
-export default function UploadX({parentId}: FolderStructure) {   
+export default function UploadX({parentId}: FolderStructure) { 
+    const session = useFetchSession();  
     const [isVisibleF, setVisibleF] = useState(false);
     const [isVisibleFol, setVisibleFol] = useState(false);
     const [isVisibleL, setVisibleL] = useState(false);
@@ -22,7 +24,6 @@ export default function UploadX({parentId}: FolderStructure) {
             const Empty_folder = {
                 EmptyNo: EmptyNo,
             }
-            console.log("x-", Empty_folder);
             
             void addEmptyFolder(Empty_folder);
         } 
@@ -31,8 +32,8 @@ export default function UploadX({parentId}: FolderStructure) {
             isFolder: true,
             folderList: [],
             parentId: parentId ?? "",
+            UserEmail: session?.user?.email,
         }
-        console.log("folder: ", folder);
         void addFolder(folder);
         setfolderName("");
         setVisibleFol(false);
@@ -42,9 +43,8 @@ export default function UploadX({parentId}: FolderStructure) {
     const uploadFile = (event: React.ChangeEvent<HTMLInputElement>) => {
 
         const file = event.target.files?.[0];
-        console.log("file: ", file);
         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-        FileUpload(file, setProgress, setVisibleL, parentId);
+        FileUpload(file, setProgress, setVisibleL, parentId, session?.user?.email);
     }
     
 

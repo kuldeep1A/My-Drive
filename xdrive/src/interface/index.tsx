@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-interface GithubAuth {
+interface Authx {
     clientId: string;
     clientSecret: string;
 }

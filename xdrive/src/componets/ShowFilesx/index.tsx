@@ -11,8 +11,8 @@ import { useFetchSession } from "@/hooks/useFetchSession";
 
 export default function ShowFilesx({ parentId }: FolderStructure) {
     const session = useFetchSession();
-
-    const { fileList } = FetchFiles(parentId);
+    
+    const { fileList } = FetchFiles(parentId, session?.user?.email);
 
     const router = useRouter();
 

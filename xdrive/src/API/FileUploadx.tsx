@@ -7,7 +7,7 @@ import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import { addFiles } from "@/API/Firestorex";
 let progress = 0;
 
-export default function FileUpload(file: any, setProgress: Function, setVisibleL: Function, parentId: string){
+export default function FileUpload(file: any, setProgress: Function, setVisibleL: Function, parentId: string, UserEmail: string | undefined | null){
     const storageRef = ref(storage, `files/${file.name}`);
     
     const uploadTask = uploadBytesResumable(storageRef, file as Blob);
@@ -31,7 +31,7 @@ export default function FileUpload(file: any, setProgress: Function, setVisibleL
         () => {
             if (progress === 100) {
                 void getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                    void addFiles(downloadURL, file.name, parentId ?? "");
+                    void addFiles(downloadURL, file.name, parentId ?? "", UserEmail);
                 })
             }
         }

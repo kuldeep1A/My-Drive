@@ -7,6 +7,7 @@ import Styles from './NavBar.module.scss'
 
 export default function NavBar(){
     const session = useFetchSession();
+    
     return (
          <>
             <div className={`px-5 py-5 ${Styles.NavBar}`}>
