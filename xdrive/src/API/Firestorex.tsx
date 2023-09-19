@@ -1,15 +1,19 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/await-thenable */
 import { database } from "@/firebaseConfig";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, doc, setDoc } from "firebase/firestore";
+import { any } from "zod";
 
 const files = collection(database, 'files');
+const Empty_no = collection(database, 'empty_no');
 
-export const addFiles = async (imageLink: string, fileName: string) => {
+
+export const addFiles = async (imageLink: string, fileName: string, parentId: string) => {
     try {
         await addDoc(files, {
             imageLink: imageLink,
             fileName: fileName,
             isFolder: false,
+            parentId: parentId ?? "",
         });
     } catch (error) {
         console.log(error);
@@ -28,10 +32,27 @@ export const addFolder = async (folder: {
             folderName: folder.folderName,
             isFolder: folder.isFolder,
             folderList: folder.folderList,
-            parentId: folder.parentId
+            parentId: folder.parentId,
         });
     } catch (error) {
         console.log(error);
         alert(error);
     }
 }
+
+export const addEmptyFolder = async (Empty_folder: { 
+    EmptyNo: number
+}) => {
+    try {
+        // /empty_no/znPJ7x9RlzUtP2dgh0jV
+        const EmptyDocument: Record<string, number> = {};
+        const empty_folder_ref = doc(Empty_no, "znPJ7x9RlzUtP2dgh0jV");
+        const EmptyFiled = 'empty_folder_no';
+        EmptyDocument[EmptyFiled] = Empty_folder.EmptyNo + 1;
+        await setDoc(empty_folder_ref, EmptyDocument, {merge: true})
+    } catch (error) {
+        console.log(error);
+        alert(error);
+    }
+}
+

@@ -1,30 +1,38 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from "react";
 import styles from './UplaodX.module.scss'
 import Button from "../common/Button";
 import FileUpload  from "@/API/FileUploadx";
-import { addFolder } from "@/API/Firestorex";
+import { addEmptyFolder, addFolder } from "@/API/Firestorex";
+import { FetchEmptyFolder } from "@/hooks/FetchEmptyFolder";
 
-export default function UploadX({parentId}: any) {
-    
+export default function UploadX({parentId}: FolderStructure) {   
     const [isVisibleF, setVisibleF] = useState(false);
     const [isVisibleFol, setVisibleFol] = useState(false);
     const [isVisibleL, setVisibleL] = useState(false);
     const [folderName, setfolderName] = useState("");
     const [Progress, setProgress] = useState(0);
-    console.log("uploadx: ", parentId);
-    console.log("uploadx type: ", typeof(parentId));
+    const empty_no = FetchEmptyFolder();
+    let EmptyNo = 1;
+    empty_no.empty_no_list.map((file: {empty_folder_no: number}) => {
+        EmptyNo = file.empty_folder_no;
+    })
     
-
     const uploadFolder = () => {
+        if (folderName === ""){
+            const Empty_folder = {
+                EmptyNo: EmptyNo,
+            }
+            console.log("x-", Empty_folder);
+            
+            void addEmptyFolder(Empty_folder);
+        } 
         const folder = {
-            folderName: folderName,
+            folderName: folderName === "" ? `Empty-${EmptyNo}`: folderName,
             isFolder: true,
             folderList: [],
             parentId: parentId ?? "",
         }
-        console.log(folder);
+        console.log("folder: ", folder);
         void addFolder(folder);
         setfolderName("");
         setVisibleFol(false);
@@ -32,12 +40,15 @@ export default function UploadX({parentId}: any) {
     
     
     const uploadFile = (event: React.ChangeEvent<HTMLInputElement>) => {
+
         const file = event.target.files?.[0];
-        FileUpload(file, setProgress, setVisibleL);
+        console.log("file: ", file);
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        FileUpload(file, setProgress, setVisibleL, parentId);
     }
     
 
-    return (
+    return (    
         <div className={styles.main}>
             <Button onClick={() => {setVisibleF(!isVisibleF), setVisibleFol(false)} } btnClass="btn-outline btn-success mb-2 mt-2" title="Upload file"/>
             {isVisibleF ? 
@@ -47,7 +58,7 @@ export default function UploadX({parentId}: any) {
                         {isVisibleL ? 
                         <>
                             <div className={styles.loading}>
-                            <svg className={styles.spinner} stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                            <svg className={styles.spinner} stroke="currentColor" fill="none" strokeWidth="2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
                                 <line x1="12" y1="2" x2="12" y2="6"></line>
                                 <line x1="12" y1="18" x2="12" y2="22"></line>
                                 <line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line>

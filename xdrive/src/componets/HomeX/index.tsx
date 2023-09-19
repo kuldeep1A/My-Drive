@@ -7,8 +7,8 @@ export default function HomeX(){
     return (
         <>
             <NavBar/>
-            <UploadX parentId={undefined} />
-            <ShowFilesx parentId={undefined}/>
+            <UploadX parentId={""} />
+            <ShowFilesx parentId={""}/>
         </>
    )
 }
