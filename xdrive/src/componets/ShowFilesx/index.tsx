@@ -1,16 +1,19 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import styles from "./ShowFilesx.module.scss";
 import { FetchFiles } from "@/hooks/FetchFiles";
 import { FaJava, FaPython } from "react-icons/fa";
 import { RiJavascriptLine } from "react-icons/ri";
 import { TbFileTypeHtml, TbFileTypeJsx } from "react-icons/tb";
 import { GrStatusUnknown } from "react-icons/gr";
+import { MdOutlineEmail } from "react-icons/md";
 import { BsFolder, BsFiletypeExe, BsFiletypeXlsx, BsFiletypeCss, BsFiletypeMp3, BsFiletypeMp4, BsFiletypeDocx, BsFileTextFill, BsFiletypeJpg, BsFiletypePng, BsFiletypeGif, BsFiletypePdf } from "react-icons/bs"
 import { useRouter } from "next/router";
 import { useFetchSession } from "@/hooks/useFetchSession";
+import { document } from "postcss";
 
 export default function ShowFilesx({ parentId }: FolderStructure) {
     const session = useFetchSession();
+    const [_shareName, setShareName] = useState("");
     
     const { fileList } = FetchFiles(parentId, session?.user?.email);
 
@@ -68,6 +71,15 @@ export default function ShowFilesx({ parentId }: FolderStructure) {
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         return <BsFolder onClick={() => router.push(folderName === "" ? `/empty?id=${id}` : `/${folderName}?id=${id}`)} className={styles.icon} size={80}/>
     }
+    const modalRef = useRef<HTMLDialogElement | null>(null);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const fetchName = (event) => {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+        const ParentDiv = event.currentTarget.parentNode;
+        const fileNameDiv = ParentDiv.querySelector("[___shareName]") as HTMLDivElement;
+        
+        console.log(event);
+    }
    
     return (
         <div className={styles.All_Files}>
@@ -76,11 +88,30 @@ export default function ShowFilesx({ parentId }: FolderStructure) {
                     const keyx = `${file.id}-${index}`;
                     return ( 
                         <div key={keyx}>
-                           {<div className={styles.file} onClick={() => OpenFile(file.imageLink, file.isFolder) }>
-                                {file.isFolder ? createFolder(file.folderName, file.id) : CheckType(file.fileName)}
-                                <div className={styles.filename}><div>{file.fileName || file.folderName}</div></div>
-                                {/* {file.imageLink === "" ? <></> : <Image className={styles.immageLink} src={file.imageLink} alt="icon" width={300} height={300} priority={true} /> } */}
-                           </div>}
+                            <div>
+                                {<div className={styles.file} onClick={() => OpenFile(file.imageLink, file.isFolder) }>
+                                        {file.isFolder ? createFolder(file.folderName, file.id) : CheckType(file.fileName)}
+                                        <div data-filename={"___shareName"} className={styles.filename}><div>{file.fileName || file.folderName}</div></div>
+                                        {/* {file.imageLink === "" ? <></> : <Image className={styles.immageLink} src={file.imageLink} alt="icon" width={300} height={300} priority={true} /> } */}
+                                </div>}
+                                <div className={styles.email} onClick={() => fetchName(this)}>
+                                        <MdOutlineEmail onClick={()=>  {
+                                            modalRef.current?.showModal()
+                                        }} size={35} />
+                                </div>
+                            </div>
+                            <dialog ref={modalRef} className="modal">
+                            <div className= {`modal-box ${styles.modelBox}`}>
+                                <form method="dialog">
+                                <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                                </form>
+                                <h3 className="font-bold text-lg">Share {"1"}</h3>
+                                <div className={styles.shareBox}>
+                                    <input type="text" placeholder="Email" className={`input input-bordered w-full max-w-xs ${styles.shareInput}`} />
+                                    <button className="px-5">Share</button>
+                                </div>
+                            </div>
+                            </dialog>
                         </div>
                     )
                 })

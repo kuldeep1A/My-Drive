@@ -11,6 +11,7 @@
 }
 
 .file {
+    overflow: none;
     width: 180px;
     height: 180px;
     background-color: whitesmoke;
@@ -22,7 +23,25 @@
     align-items: center;
     gap: 10px;
 }
-
+.email {
+  position: relative;
+  top: -35px;
+  right: -142px;
+  cursor: pointer;
+  z-index: 100;
+}
+.modelBox {
+  background-color: white;
+  color: black;
+}
+.shareInput {
+  background-color: whitesmoke;
+}
+.shareBox {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
 .All_Files {
   width: 100%;
   padding: 10px;

@@ -22,3 +22,7 @@ interface FolderStructure {
 interface EmptyDocument {
     EmptyField: string
 }
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+interface MyModel {
+    showModel: () => void; 
+  }
