@@ -13,6 +13,9 @@ import { useFetchSession } from "@/hooks/useFetchSession";
 export default function ShowFilesx({ parentId }: FolderStructure) {
     const session = useFetchSession();
     const [_shareName, setShareName] = useState("");
+    const [currentFileId, setCurrentFileId] = useState("");
+    const [email, setEmail] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
     
     const { fileList } = FetchFiles(parentId, session?.user?.email);
 
@@ -84,6 +87,17 @@ export default function ShowFilesx({ parentId }: FolderStructure) {
             setShareName(shareName)
         }
     }
+
+    const SharedEmail = () => {
+        if (email.trim() === "") {
+            setErrorMessage("Please enter an email address.");
+        } else {
+            
+            setErrorMessage("");
+            console.log(currentFileId);
+            console.log("email: ", email);
+        }
+    }
    
     return (
         <div className={styles.All_Files}>
@@ -100,7 +114,8 @@ export default function ShowFilesx({ parentId }: FolderStructure) {
                                 </div>}
                                 <div className={styles.email} onClick={fetchName}>
                                         <MdOutlineEmail onClick={()=>  {
-                                            modalRef.current?.showModal()
+                                            modalRef.current?.showModal();
+                                            setCurrentFileId(file.id);
                                         }} size={35} />
                                 </div>
                             </div>
@@ -110,12 +125,13 @@ export default function ShowFilesx({ parentId }: FolderStructure) {
                                 <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
                                 </form>
                                 <h3 className="font-bold text-lg">Share {_shareName}</h3>
-                                <form action="">
+                                <div>
                                     <div className={styles.shareBox}>
-                                        <input type="email" required={true} placeholder="Email" className={`input input-bordered w-full max-w-xs ${styles.shareInput}`} />
-                                        <button className="px-5">Share</button>
+                                        <input type="email" required={true} placeholder="Email" onChange={(event) => setEmail(event.type ===  "email" ? event.target.value : "")} className={`input input-bordered w-full max-w-xs ${styles.shareInput}`} />
+                                        <button onClick={() => SharedEmail()} className="px-5">Share</button>
                                     </div>
-                                </form>
+                                    {errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
+                                </div>
                             </div>
                             </dialog>
                         </div>
