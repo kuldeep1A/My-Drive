@@ -4,13 +4,13 @@ import NavBar from '@/componets/NavBar'
 import UploadX from '@/componets/UploadX'
 import ShowFilesx from '@/componets/ShowFilesx'
 import { useRouter } from 'next/router'
+import { useFetchSession } from "@/hooks/useFetchSession";
 
 export default function Folder() {
+    const session = useFetchSession();
     const router = useRouter();
     const parentid: string | undefined | string[] = router?.query?.id;
-
-    console.log("parentid: ", parentid);
-
+    
     return (
         <>
             <Head>
@@ -23,10 +23,13 @@ export default function Folder() {
             </Head>
             <main className="min-h-screen  bg-gradient-to-b from-[#2e026d] to-[#15162c]">
                 <NavBar />
-                <UploadX parentId={parentid as string} />
                 {/* <UploadX parentId={typeof parentid === 'string' ? parentid : ''} /> */}
-                <ShowFilesx parentId={parentid as string} />
                 {/* <ShowFilesx parentId={typeof parentid === 'string' ? parentid : ''} /> */}
+                {session ? 
+                <>
+                    <UploadX parentId={parentid as string} />
+                    <ShowFilesx parentId={parentid as string} />
+                </> : <></> }
             </main>
         </>
     )

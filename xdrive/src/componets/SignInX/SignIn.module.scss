@@ -1,0 +1,10 @@
+.CenterSigIn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    top: 250px;
+    user-select: none !important;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+}
