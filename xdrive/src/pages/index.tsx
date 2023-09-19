@@ -12,7 +12,7 @@ export default function Home() {
         <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png" />
       </Head>
-      <main className="min-h-screen  bg-gradient-to-b from-[#2e026d] to-[#15162c]">
+      <main className="min-h-screen select-none bg-gradient-to-b from-[#2e026d] to-[#15162c]">
         <HomeX /> 
       </main>
     </>

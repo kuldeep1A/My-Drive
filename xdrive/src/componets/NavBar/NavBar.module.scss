@@ -22,7 +22,21 @@
         flex-direction: column;
         justify-content: baseline;
     }
+}
+@media screen and (max-width: 435px) {
+    .authBtn {
+        position: relative;
+        top: auto;
+        right: auto;
+        justify-content: center;
+    }
+    .XDrive{
+        display: flex;
+        justify-content: center;
+    }
     .NavBar {
-        flex-direction: column;
+        display: flex;
+        flex-direction: column !important;
+        gap: 20px;
     }
 }

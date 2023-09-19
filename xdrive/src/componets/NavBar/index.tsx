@@ -10,13 +10,20 @@ export default function NavBar(){
     return (
          <>
             <div className={`px-5 py-5 ${Styles.NavBar}`}>
-                {session ? <><h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-[5rem] px-10">
-                    <span className="text-[hsl(280,100%,70%)]">X</span> Drive
-                </h1></>: <></>}
+                {session ? 
+                <>
+                    <div className={Styles.XDrive}>
+                        <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-[5rem] px-10">
+                            <span className="text-[hsl(180,100%,70%)]">X</span> Drive
+                        </h1>
+                    </div>
+                </>: <></>}
                 
-                <div className={Styles.authBtn}>
-                    {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
-                    {session ? <> <Image src={`${session?.user.image}`} draggable={false} className="rounded-xl" width={50} height={50} alt="logo" /> <Button onClick={() => signOut()} btnClass={'btn-primary'} title='Sign Out'/> </>: <Button onClick={() => signIn()} btnClass={'btn-primary'} title='Sign In'/>}
+                <div>
+                    <div className={Styles.authBtn}>
+                        {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
+                        {session ? <> <Image src={`${session?.user.image}`} draggable={false} className="rounded-xl" width={50} height={50} alt="logo" /> <Button onClick={() => signOut()} btnClass={'btn-primary'} title='Sign Out'/> </>: <Button onClick={() => signIn()} btnClass={'btn-primary'} title='Sign In'/>}
+                    </div>
                 </div>
             </div>
             {session ? 

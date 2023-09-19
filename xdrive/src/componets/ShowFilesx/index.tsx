@@ -7,8 +7,11 @@ import { TbFileTypeHtml, TbFileTypeJsx } from "react-icons/tb";
 import { GrStatusUnknown } from "react-icons/gr";
 import { BsFolder, BsFiletypeExe, BsFiletypeXlsx, BsFiletypeCss, BsFiletypeMp3, BsFiletypeMp4, BsFiletypeDocx, BsFileTextFill, BsFiletypeJpg, BsFiletypePng, BsFiletypeGif, BsFiletypePdf } from "react-icons/bs"
 import { useRouter } from "next/router";
+import { useFetchSession } from "@/hooks/useFetchSession";
 
 export default function ShowFilesx({ parentId }: FolderStructure) {
+    const session = useFetchSession();
+
     const { fileList } = FetchFiles(parentId);
 
     const router = useRouter();
