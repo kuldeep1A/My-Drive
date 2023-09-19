@@ -9,7 +9,6 @@ import { MdOutlineEmail } from "react-icons/md";
 import { BsFolder, BsFiletypeExe, BsFiletypeXlsx, BsFiletypeCss, BsFiletypeMp3, BsFiletypeMp4, BsFiletypeDocx, BsFileTextFill, BsFiletypeJpg, BsFiletypePng, BsFiletypeGif, BsFiletypePdf } from "react-icons/bs"
 import { useRouter } from "next/router";
 import { useFetchSession } from "@/hooks/useFetchSession";
-import { document } from "postcss";
 
 export default function ShowFilesx({ parentId }: FolderStructure) {
     const session = useFetchSession();
@@ -73,12 +72,17 @@ export default function ShowFilesx({ parentId }: FolderStructure) {
     }
     const modalRef = useRef<HTMLDialogElement | null>(null);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const fetchName = (event) => {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-        const ParentDiv = event.currentTarget.parentNode;
-        const fileNameDiv = ParentDiv.querySelector("[___shareName]") as HTMLDivElement;
+    const fetchName = (event: any) => {
         
-        console.log(event);
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+        const parentDiv = event.currentTarget.parentNode;
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+        const fileNameDiv = parentDiv.querySelector('[data-filename]') as HTMLDivElement;
+        
+        if (fileNameDiv) {
+            const shareName = fileNameDiv.textContent ?? "";
+            setShareName(shareName)
+        }
     }
    
     return (
@@ -94,7 +98,7 @@ export default function ShowFilesx({ parentId }: FolderStructure) {
                                         <div data-filename={"___shareName"} className={styles.filename}><div>{file.fileName || file.folderName}</div></div>
                                         {/* {file.imageLink === "" ? <></> : <Image className={styles.immageLink} src={file.imageLink} alt="icon" width={300} height={300} priority={true} /> } */}
                                 </div>}
-                                <div className={styles.email} onClick={() => fetchName(this)}>
+                                <div className={styles.email} onClick={fetchName}>
                                         <MdOutlineEmail onClick={()=>  {
                                             modalRef.current?.showModal()
                                         }} size={35} />
@@ -105,11 +109,13 @@ export default function ShowFilesx({ parentId }: FolderStructure) {
                                 <form method="dialog">
                                 <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
                                 </form>
-                                <h3 className="font-bold text-lg">Share {"1"}</h3>
-                                <div className={styles.shareBox}>
-                                    <input type="text" placeholder="Email" className={`input input-bordered w-full max-w-xs ${styles.shareInput}`} />
-                                    <button className="px-5">Share</button>
-                                </div>
+                                <h3 className="font-bold text-lg">Share {_shareName}</h3>
+                                <form action="">
+                                    <div className={styles.shareBox}>
+                                        <input type="email" required={true} placeholder="Email" className={`input input-bordered w-full max-w-xs ${styles.shareInput}`} />
+                                        <button className="px-5">Share</button>
+                                    </div>
+                                </form>
                             </div>
                             </dialog>
                         </div>
