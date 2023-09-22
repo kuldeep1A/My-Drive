@@ -10,6 +10,8 @@ import { BsFolder, BsFiletypeExe, BsFiletypeXlsx, BsFiletypeCss, BsFiletypeMp3, 
 import { useRouter } from "next/router";
 import { useFetchSession } from "@/hooks/useFetchSession";
 
+let count = 0;
+
 export default function ShowFilesx({ parentId }: FolderStructure) {
     const session = useFetchSession();
     const [_shareName, setShareName] = useState("");
@@ -18,6 +20,23 @@ export default function ShowFilesx({ parentId }: FolderStructure) {
     const [errorMessage, setErrorMessage] = useState("");
     
     const { fileList } = FetchFiles(parentId, session?.user?.email);
+    
+    fileList.map((file: {UserEmail: ".lkjljfsj"}) => {
+        let com: unknown[] = [];
+        if (file.UserEmail !== undefined) {
+            const userEmail = file.UserEmail;
+            com = userEmail.split('.')
+            if (com[1] === "com"){
+                if (count < 8) {
+                    count = 1 + count                
+                    if (count === 8 ){
+                        console.log("fileList: ", fileList)
+                    }
+                }
+            }
+        }
+    })
+    
 
     const router = useRouter();
 

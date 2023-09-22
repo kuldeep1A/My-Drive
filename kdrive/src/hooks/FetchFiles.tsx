@@ -1,6 +1,6 @@
 import { database, } from "@/firebaseConfig";
 import { onSnapshot, collection, where, query } from "firebase/firestore";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const files = collection(database, "files");
 
@@ -33,10 +33,10 @@ export const FetchFiles = (parentId: string, UserEmail: string | undefined | nul
                 })
             }
         }
+        
+        
     }
-    useEffect(() => {
-        getFolders();
-    }, [getFolders, UserEmail]);
+    getFolders();
 
-    return { fileList };
+    return { fileList } ;
 }

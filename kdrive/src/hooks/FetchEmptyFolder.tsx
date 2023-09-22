@@ -6,9 +6,7 @@ const empty_no = collection(database, "empty_no");
 
 export const FetchEmptyFolder = () => {
     const [empty_no_list, setEmpty_no_list] = useState<ArrayType>([{}]);
-    console.log(empty_no_list);
-    
-
+    console.log("empty_no_list: ", empty_no_list)
     useEffect(() => {
         return onSnapshot(empty_no, (response)=> {
             setEmpty_no_list(

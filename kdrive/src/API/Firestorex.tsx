@@ -16,7 +16,6 @@ export const addFiles = async (imageLink: string, fileName: string, parentId: st
             UserEmail: UserEmail
         });
     } catch (error) {
-        console.log(error);
         alert(error);
     }
 }
@@ -37,7 +36,6 @@ export const addFolder = async (folder: {
             UserEmail: folder.UserEmail,
         });
     } catch (error) {
-        console.log(error);
         alert(error);
     }
 }
@@ -53,7 +51,7 @@ export const addEmptyFolder = async (Empty_folder: {
         EmptyDocument[EmptyFiled] = Empty_folder.EmptyNo + 1;
         await setDoc(empty_folder_ref, EmptyDocument, {merge: true})
     } catch (error) {
-        console.log(error);
+
         alert(error);
     }
 }
