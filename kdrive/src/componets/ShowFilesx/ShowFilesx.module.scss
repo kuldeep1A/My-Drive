@@ -3,15 +3,15 @@
     height: auto;
     object-fit: cover;
 }
-
 .filename {
   overflow-x: hidden;
   overflow-y: hidden;
   text-overflow: inherit;
 }
-
+.FoldersFiles {
+  margin-bottom: -40px;
+}
 .file {
-    overflow: none;
     width: 180px;
     height: 180px;
     background-color: whitesmoke;
@@ -57,9 +57,10 @@ $tablet: 770px;
 $desktop: 1370px;
 $largeDesktop: 1450px;
 
-@media screen and (max-width: $x) {
+
+@media screen and (max-width: $x){
   .file {
-    width: 200px !important;
+    width: 300px !important;
     height: 50px !important;
     background-color: whitesmoke;
     border-radius: 10px;
@@ -69,14 +70,36 @@ $largeDesktop: 1450px;
     flex-wrap: wrap;
     gap: 10px;
   }
+  .manageIcon {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    left: -90px;
+  }
+  .email {
+    top: -42px !important;
+    left: 250px !important;
+  } 
 }
 
+@media screen and (min-width: $x) and (max-width: $mobile) {
+  .manageIcon {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    top: 0px;
+    left: -94px;
+  }
+}
 @media screen and (max-width: $mobile) {
+  .email {
+    top: -42px;
+    left: 282px;
+  } 
   .icon {
     height: 40px !important;
     width: 40px !important;
   }
-
   .file {
     width: 350px;
     height: 50px;
@@ -88,7 +111,6 @@ $largeDesktop: 1450px;
     flex-wrap: wrap;
     gap: 10px;
   }
-
   .All_Files {
     width: 100%;
     margin: auto;

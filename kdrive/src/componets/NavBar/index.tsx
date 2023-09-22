@@ -14,9 +14,11 @@ export default function NavBar(){
                 {session ? 
                 <>
                     <div className={Styles.KDrive}>
-                        <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-[5rem] px-10">
-                            <span className="text-[hsl(180,100%,70%)]">K</span> Drive
-                        </h1>
+                        <a href="/">
+                            <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-[5rem] px-10">
+                                <span className="text-[hsl(180,100%,70%)]">K</span> Drive
+                            </h1>
+                        </a>
                     </div>
                 </>: <></>}
                 

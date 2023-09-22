@@ -105,11 +105,13 @@ export default function ShowFilesx({ parentId }: FolderStructure) {
                 fileList.map((file: {imageLink: "", fileName: "", isFolder: false, folderName: "", id: ""}, index: number) => {
                     const keyx = `${file.id}-${index}`;
                     return ( 
-                        <div key={keyx}>
+                        <div key={keyx} className={styles.FoldersFiles}>
                             <div>
                                 {<div className={styles.file} onClick={() => OpenFile(file.imageLink, file.isFolder) }>
-                                        {file.isFolder ? createFolder(file.folderName, file.id) : CheckType(file.fileName)}
-                                        <div data-filename={"___shareName"} className={styles.filename}><div>{file.fileName || file.folderName}</div></div>
+                                        <div className={styles.manageIcon}>
+                                            <div>{file.isFolder ? createFolder(file.folderName, file.id) : CheckType(file.fileName)}</div>
+                                            <div data-filename={"___shareName"} className={styles.filename}><div>{file.fileName || file.folderName}</div></div>
+                                        </div>
                                         {/* {file.imageLink === "" ? <></> : <Image className={styles.immageLink} src={file.imageLink} alt="icon" width={300} height={300} priority={true} /> } */}
                                 </div>}
                                 <div className={styles.email} onClick={fetchName}>
