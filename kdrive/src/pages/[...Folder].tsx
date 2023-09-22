@@ -14,7 +14,7 @@ export default function Folder() {
     return (
         <>
             <Head>
-                <title>X Drive</title>
+                <title>K Drive</title>
                 <meta name="description" content="K-Drive storage" />
                 <link rel="icon" href="/favicons/favicon.ico" />
                 <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png" />

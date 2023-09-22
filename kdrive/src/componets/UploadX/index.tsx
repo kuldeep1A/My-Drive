@@ -28,7 +28,7 @@ export default function UploadX({parentId}: FolderStructure) {
             void addEmptyFolder(Empty_folder);
         } 
         const folder = {
-            folderName: folderName === "" ? `Empty-${EmptyNo}`: folderName,
+            folderName: folderName === "" ? `Folder-${EmptyNo}`: folderName,
             isFolder: true,
             folderList: [],
             parentId: parentId ?? "",

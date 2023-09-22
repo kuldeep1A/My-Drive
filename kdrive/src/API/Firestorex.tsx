@@ -48,7 +48,7 @@ export const addEmptyFolder = async (Empty_folder: {
     try {
         // /empty_no/znPJ7x9RlzUtP2dgh0jV
         const EmptyDocument: Record<string, number> = {};
-        const empty_folder_ref = doc(Empty_no, "znPJ7x9RlzUtP2dgh0jV");
+        const empty_folder_ref = doc(Empty_no, `${process.env.EMPTY_NO_ID}`);
         const EmptyFiled = 'empty_folder_no';
         EmptyDocument[EmptyFiled] = Empty_folder.EmptyNo + 1;
         await setDoc(empty_folder_ref, EmptyDocument, {merge: true})
