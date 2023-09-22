@@ -1,0 +1,252 @@
+.imageLink {
+    width: auto;
+    height: auto;
+    object-fit: cover;
+}
+
+.filename {
+  overflow-x: hidden;
+  overflow-y: hidden;
+  text-overflow: inherit;
+}
+
+.file {
+    overflow: none;
+    width: 180px;
+    height: 180px;
+    background-color: whitesmoke;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+.email {
+  position: relative;
+  top: -35px;
+  right: -142px;
+  cursor: pointer;
+  z-index: 100;
+}
+.modelBox {
+  background-color: white;
+  color: black;
+}
+.shareInput {
+  background-color: whitesmoke;
+}
+.shareBox {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+.All_Files {
+  width: 100%;
+  padding: 10px;
+  display: grid;
+  gap: 10px;
+  justify-content: flex-start;
+  grid-template-columns: auto;
+}
+
+$x: 370px;
+$mobile: 480px;
+$tablet: 770px;
+$desktop: 1370px;
+$largeDesktop: 1450px;
+
+@media screen and (max-width: $x) {
+  .file {
+    width: 200px !important;
+    height: 50px !important;
+    background-color: whitesmoke;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+}
+
+@media screen and (max-width: $mobile) {
+  .icon {
+    height: 40px !important;
+    width: 40px !important;
+  }
+
+  .file {
+    width: 350px;
+    height: 50px;
+    background-color: whitesmoke;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .All_Files {
+    width: 100%;
+    margin: auto;
+    margin-left: auto;
+    padding: 10px;
+    display: grid;
+    gap: 10px;
+    justify-content: center;
+    grid-template-columns: auto;
+  }
+}
+
+@media screen and (min-width: $mobile) and (max-width: ($mobile + 90px)){
+  .All_Files {
+    margin-left: 70px;
+    grid-template-columns: repeat(2, auto) !important;
+  }
+}
+
+@media screen and (min-width: $mobile) {
+  .All_Files {
+    width: 100%;
+    padding: 10px;
+    display: grid;
+    gap: 10px;
+    justify-content: flex-start;
+    grid-template-columns: repeat(3, auto);
+  }
+}
+
+@media screen and (min-width: ($mobile + 120px)) and (max-width: ($mobile + 160px)) {
+  .All_Files {
+    margin: auto !important;
+  }
+}
+
+@media screen and (min-width: 600px) and (max-width: ($mobile + 190px)) {
+  .All_Files {
+    width: 100%;
+    margin: auto;
+    margin-left: 35px;
+    padding: 10px;
+    display: grid;
+    gap: 10px;
+    justify-content: flex-start;
+    grid-template-columns: repeat(3, auto);
+  }
+}
+
+@media screen and (min-width: ($tablet - 100px)) and (max-width: $tablet) {
+  .All_Files {
+    margin-left: 65px;
+    grid-template-columns: repeat(3, auto);
+  }  
+}
+
+@media screen and (min-width: $tablet) {
+  .All_Files {
+    width: 100%;
+    margin: auto;
+    padding: 10px;
+    display: grid;
+    gap: 10px;
+    justify-content: flex-start;
+    grid-template-columns: repeat(4, auto); 
+  }
+}
+@media screen and (min-width: 850px) and (max-width: 950px) {
+  .All_Files {
+    margin-left: 40px;
+    grid-template-columns: repeat(4, auto);
+  }  
+}
+@media screen and (min-width: 950px) and (max-width: 1000px) {
+  .All_Files {
+    grid-template-columns: repeat(5, auto);
+  }  
+}
+@media screen and (min-width: 1000px) and (max-width: 1090px) {
+  .All_Files {
+    margin-left: 20px;
+    grid-template-columns: repeat(5, auto);
+  }  
+}
+@media screen and (min-width: 1090px) and (max-width: 1140px) {
+  .All_Files {
+    margin-left: 80px;
+    grid-template-columns: repeat(5, auto);
+  }
+}
+
+@media screen and (min-width: ($desktop - 230px)) and (max-width: ($desktop - 180px)) {
+  .All_Files {
+    grid-template-columns: repeat(6, auto);
+  }
+}
+
+@media screen and (min-width: ($desktop - 180px)) and (max-width: ($desktop - 150px)) {
+  .All_Files {
+    margin-left: 40px;
+    grid-template-columns: repeat(6, auto);
+  }
+}
+
+
+@media screen and (min-width: ($desktop - 150px)) and (max-width: ($desktop - 40px)) {
+  .All_Files {
+    margin-left: 60px;
+    grid-template-columns: repeat(6, auto);
+  }
+}
+
+
+@media screen and (min-width: ($desktop - 40px)) {
+  .All_Files {
+    width: 100%;
+    padding: 10px;
+    display: grid;
+    gap: 10px;
+    justify-content: flex-start;
+    grid-template-columns: repeat(7, auto);
+  }
+}
+
+@media screen and (min-width: $desktop) {
+  .All_Files {
+    width: 100%;
+    padding: 10px;
+    display: grid;
+    gap: 10px;
+    justify-content: flex-start;
+    grid-template-columns: repeat(7, auto);
+  }
+}
+
+
+@media screen and (min-width: ($largeDesktop - 60px)) {
+  .All_Files {
+    width: 100%;
+    margin-left: 40px;
+    padding: 10px;
+    display: grid;
+    gap: 10px;
+    justify-content: flex-start;
+    grid-template-columns: repeat(7, auto);
+  }
+}
+
+@media screen and (min-width: $largeDesktop) {
+  .All_Files {
+    width: 100%;
+    margin-left: 70px;
+    padding: 10px;
+    display: grid;
+    gap: 10px;
+    justify-content: flex-start;
+    grid-template-columns: repeat(8, auto);
+  }
+}
+
+  

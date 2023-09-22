@@ -1,0 +1,27 @@
+.CenterSigIn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    top: 250px;
+    user-select: none !important;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+}
+.KDrive {
+    box-shadow: 0px 0px 20px 20px hsl(262deg 62.01% 63.99%);
+    border-radius: 50px;
+    background-color: hsl(262deg 81.62% 26.81%);;
+    position: relative;
+    // box-shadow: 10px 10px 10px 5px inset, 10px 10px 10px 5px hsl(262.11deg 80.85% 18.43%) inset;
+}
+.KDrive_child {
+    position: relative;
+    top: -8px;
+}
+@media screen and (max-width: 640px) {
+    .KDrive_child {
+        position: relative;
+        top: -5px;
+    }
+}
