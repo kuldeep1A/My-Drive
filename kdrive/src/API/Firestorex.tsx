@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/await-thenable */
 import { database } from "@/firebaseConfig";
-import { collection, addDoc, doc, setDoc } from "firebase/firestore";
+import { collection, addDoc, doc, setDoc, updateDoc, getDoc } from "firebase/firestore";
+import { arrayOutputType } from "zod";
 
 const files = collection(database, 'files');
 const Empty_no = collection(database, 'empty_no');
@@ -13,7 +14,8 @@ export const addFiles = async (imageLink: string, fileName: string, parentId: st
             fileName: fileName,
             isFolder: false,
             parentId: parentId ?? "",
-            UserEmail: UserEmail
+            UserEmail: UserEmail,
+            SharedTo: []
         });
     } catch (error) {
         alert(error);
@@ -34,19 +36,33 @@ export const addFolder = async (folder: {
             folderList: folder.folderList,
             parentId: folder.parentId,
             UserEmail: folder.UserEmail,
+            SharedTo: []
         });
     } catch (error) {
         alert(error);
     }
 }
 
+export const ShareFiles = async (email: string, currentFileId: string) => { 
+    try {
+        const SharedFiledDoc = await doc(files, currentFileId);
+        const response = await getDoc(SharedFiledDoc);
+        console.log(response.data()?.SharedTo);
+        await updateDoc(SharedFiledDoc, {
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+            SharedTo: [...response.data()?.SharedTo, email],
+        })
+    } catch (error) {
+        alert(error);
+    }   
+}
+
 export const addEmptyFolder = async (Empty_folder: { 
     EmptyNo: number
 }) => {
     try {
-        // /empty_no/znPJ7x9RlzUtP2dgh0jV
         const EmptyDocument: Record<string, number> = {};
-        const empty_folder_ref = doc(Empty_no, `${process.env.EMPTY_NO_ID}`);
+        const empty_folder_ref = doc(Empty_no, `${process.env.NEXT_PUBLIC_EMPTY_NO_ID}`);
         const EmptyFiled = 'empty_folder_no';
         EmptyDocument[EmptyFiled] = Empty_folder.EmptyNo + 1;
         await setDoc(empty_folder_ref, EmptyDocument, {merge: true})

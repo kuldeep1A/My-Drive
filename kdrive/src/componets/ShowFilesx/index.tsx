@@ -9,6 +9,7 @@ import { MdOutlineEmail } from "react-icons/md";
 import { BsFolder, BsFiletypeExe, BsFiletypeXlsx, BsFiletypeCss, BsFiletypeMp3, BsFiletypeMp4, BsFiletypeDocx, BsFileTextFill, BsFiletypeJpg, BsFiletypePng, BsFiletypeGif, BsFiletypePdf } from "react-icons/bs"
 import { useRouter } from "next/router";
 import { useFetchSession } from "@/hooks/useFetchSession";
+import { ShareFiles } from "@/API/Firestorex";
 
 let count = 0;
 
@@ -106,18 +107,31 @@ export default function ShowFilesx({ parentId }: FolderStructure) {
             setShareName(shareName)
         }
     }
+    
+    const EmailChange = () => {
+        const enteredEmail = email;
+        const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+        if (enteredEmail === '' || emailRegex.test(enteredEmail)) {
+            setEmail(enteredEmail);
+            return true;
+        } else {
+            return false;
+        }
+      };
+      
 
     const SharedEmail = () => {
-        if (email.trim() === "") {
+        if (email.trim() === "" || !EmailChange()) {
             setErrorMessage("Please enter an email address.");
-        } else {
-            
+        } else if (EmailChange()) {
             setErrorMessage("");
-            console.log(currentFileId);
+            console.log("currentFileId: ", currentFileId);
             console.log("email: ", email);
+            void ShareFiles(email, currentFileId);
         }
+        setEmail("")
     }
-   
+    
     return (
         <div className={styles.All_Files}>
             {
@@ -148,10 +162,13 @@ export default function ShowFilesx({ parentId }: FolderStructure) {
                                 <h3 className="font-bold text-lg">Share {_shareName}</h3>
                                 <div>
                                     <div className={styles.shareBox}>
-                                        <input type="email" required={true} placeholder="Email" onChange={(event) => setEmail(event.type ===  "email" ? event.target.value : "")} className={`input input-bordered w-full max-w-xs ${styles.shareInput}`} />
-                                        <button onClick={() => SharedEmail()} className="px-5">Share</button>
+                                        <input type="email" required={true} placeholder="Email" value={email} onChange={(event) => setEmail(event.target.value)}  className={`input input-bordered w-full max-w-xs ${styles.shareInput}`} />
+                                        <button onClick={() => {
+                                            EmailChange;
+                                            SharedEmail();
+                                        }} className="px-5">Share</button>
                                     </div>
-                                    {errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
+                                    {errorMessage === "" ? <></> : <p className={styles.errorMessage}>{errorMessage}</p>}
                                 </div>
                             </div>
                             </dialog>

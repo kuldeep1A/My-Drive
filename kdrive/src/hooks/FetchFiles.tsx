@@ -11,7 +11,7 @@ export const FetchFiles = (parentId: string, UserEmail: string | undefined | nul
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const getFolders = () => {
         if (UserEmail) {
-            const _query = query(files, where("UserEmail", "==", UserEmail))
+            const _query = query(files, where("UserEmail", "==", UserEmail), where("ShareTo", "array-contains", UserEmail));
             if (!parentId && UserEmail){
                 onSnapshot(_query, (response) => {
                     setFileList(
@@ -20,7 +20,8 @@ export const FetchFiles = (parentId: string, UserEmail: string | undefined | nul
                         })
                         /* eslint-disable @typescript-eslint/no-explicit-any */
                         /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-                        .filter((item: any) => item.parentId === "" && item.UserEmail === UserEmail)
+                        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+                        .filter((item: any) => item.parentId === "" && (item.UserEmail === UserEmail || item.SharedTo?.include(UserEmail)))
                     );
                 })
             } else if (UserEmail) {
