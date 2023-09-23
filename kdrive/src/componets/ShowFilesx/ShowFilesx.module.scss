@@ -4,6 +4,12 @@
   object-fit: cover;
 }
 
+.icons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .filename {
   overflow-x: hidden;
   overflow-y: hidden;
@@ -18,7 +24,7 @@
   position: relative;
   width: 180px;
   height: 180px;
-  background-color: whitesmoke;
+  background-color: white;
   border-radius: 10px;
   cursor: pointer;
   display: flex;
@@ -74,12 +80,11 @@ $largeDesktop: 1450px;
     left: 10px;
     top: 4px;
   }
-  
+
   .file {
     position: relative;
     width: 300px !important;
     height: 50px !important;
-    background-color: whitesmoke;
     border-radius: 10px;
     cursor: pointer;
     display: flex;
@@ -129,7 +134,6 @@ $largeDesktop: 1450px;
     position: relative;
     width: 350px;
     height: 50px;
-    background-color: whitesmoke;
     border-radius: 10px;
     cursor: pointer;
     display: flex;
