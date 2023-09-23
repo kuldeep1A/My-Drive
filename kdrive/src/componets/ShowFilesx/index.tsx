@@ -134,7 +134,8 @@ export default function ShowFilesx({ parentId }: FolderStructure) {
     if (!__name || !extension || name.length < maxLength) {
       return name;
     }
-    const keepNameLength = maxLength - 5 - extension.length - 1;
+    
+    const keepNameLength = (maxLength - 5) - extension.length - 1;
     const shortenedName = __name.slice(0, keepNameLength);
     const lastFourC = __name.slice(-4);
     const newFilename = `${shortenedName}...${lastFourC}.${extension}`;
@@ -184,9 +185,9 @@ export default function ShowFilesx({ parentId }: FolderStructure) {
                               <></>
                             )
                           ) : file.fileName !== undefined ? (
-                            shorten_filename(file.fileName, 35)
+                            shorten_filename(file.fileName, 27)
                           ) : file.folderName !== undefined ? (
-                            shorten_filename(file.folderName, 35)
+                            shorten_filename(file.folderName, 27)
                           ) : (
                             <></>
                           )}
