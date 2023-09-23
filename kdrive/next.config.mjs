@@ -14,11 +14,11 @@ const config = {
    * @see https://github.com/vercel/next.js/issues/41980
    */
   i18n: {
-    locales: ["en"],
+  locales: ["en"],
     defaultLocale: "en",
   },
   images: {
-    domains: ['avatars.githubusercontent.com', 'lh3.googleusercontent.com'],
+    domains: ['avatars.githubusercontent.com', 'lh3.googleusercontent.com', 'firebasestorage.googleapis.com'],
   },
 };
 

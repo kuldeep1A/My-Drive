@@ -11,38 +11,16 @@ import { useRouter } from "next/router";
 import { useFetchSession } from "@/hooks/useFetchSession";
 import { ShareFiles } from "@/API/Firestorex";
 
-let count = 0;
-
 export default function ShowFilesx({ parentId }: FolderStructure) {
     const session = useFetchSession();
     const [_shareName, setShareName] = useState("");
     const [currentFileId, setCurrentFileId] = useState("");
     const [email, setEmail] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
-    
     const { fileList } = FetchFiles(parentId, session?.user?.email);
-    
-    fileList.map((file: {UserEmail: ".lkjljfsj"}) => {
-        let com: unknown[] = [];
-        if (file.UserEmail !== undefined) {
-            const userEmail = file.UserEmail;
-            com = userEmail.split('.')
-            if (com[1] === "com"){
-                if (count < 8) {
-                    count = 1 + count                
-                    if (count === 8 ){
-                        console.log("fileList: ", fileList)
-                    }
-                }
-            }
-        }
-    })
-    
-
     const router = useRouter();
-
     const OpenFile = (filelink: string, isFolder: boolean) => {
-        if (!isFolder){
+        if (!isFolder) {
             window.open(filelink);
         }
     }
@@ -91,23 +69,21 @@ export default function ShowFilesx({ parentId }: FolderStructure) {
     }
     const createFolder = (folderName: string, id: string) => {
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
-        return <BsFolder onClick={() => router.push(folderName === "" ? `/empty?id=${id}` : `/${folderName}?id=${id}`)} className={styles.icon} size={80}/>
+        return <BsFolder onClick={() => router.push(folderName === "" ? `/empty?id=${id}` : `/${folderName}?id=${id}`)} className={styles.icon} size={80} />
     }
     const modalRef = useRef<HTMLDialogElement | null>(null);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const fetchName = (event: any) => {
-        
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
         const parentDiv = event.currentTarget.parentNode;
         // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
         const fileNameDiv = parentDiv.querySelector('[data-filename]') as HTMLDivElement;
-        
+
         if (fileNameDiv) {
             const shareName = fileNameDiv.textContent ?? "";
             setShareName(shareName)
         }
     }
-    
     const EmailChange = () => {
         const enteredEmail = email;
         const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
@@ -117,66 +93,63 @@ export default function ShowFilesx({ parentId }: FolderStructure) {
         } else {
             return false;
         }
-      };
-      
-
+    };
     const SharedEmail = () => {
         if (email.trim() === "" || !EmailChange()) {
             setErrorMessage("Please enter an email address.");
         } else if (EmailChange()) {
             setErrorMessage("");
-            console.log("currentFileId: ", currentFileId);
-            console.log("email: ", email);
             void ShareFiles(email, currentFileId);
+            modalRef.current?.close();
         }
         setEmail("")
     }
-    
     return (
         <div className={styles.All_Files}>
             {
-                fileList.map((file: {imageLink: "", fileName: "", isFolder: false, folderName: "", id: ""}, index: number) => {
+                fileList.map((file: { imageLink: "", fileName: "", isFolder: false, folderName: "", id: "" }, index: number) => {
                     const keyx = `${file.id}-${index}`;
-                    return ( 
+                    return (
                         <div key={keyx} className={styles.FoldersFiles}>
                             <div>
-                                {<div className={styles.file} onClick={() => OpenFile(file.imageLink, file.isFolder) }>
-                                        <div className={styles.manageIcon}>
-                                            <div>{file.isFolder ? createFolder(file.folderName, file.id) : CheckType(file.fileName)}</div>
-                                            <div data-filename={"___shareName"} className={styles.filename}><div>{file.fileName || file.folderName}</div></div>
-                                        </div>
-                                        {/* {file.imageLink === "" ? <></> : <Image className={styles.immageLink} src={file.imageLink} alt="icon" width={300} height={300} priority={true} /> } */}
+                                {<div className={styles.file} onClick={() => {
+                                    OpenFile(file.imageLink, file.isFolder);
+                                }}>
+                                    <div className={styles.manageIcon}>
+                                        <div>{file.isFolder ? createFolder(file.folderName, file.id) : CheckType(file.fileName)}</div>
+                                        <div data-filename={"___shareName"} className={styles.filename}><div>{file.fileName || file.folderName}</div></div>
+                                    </div>
+                                    {/* {file.imageLink === "" ? <></> : <Image className={styles.immageLink} src={file.imageLink} alt="icon" width={300} height={300} priority={true} /> } */}
                                 </div>}
                                 <div className={styles.email} onClick={fetchName}>
-                                        <MdOutlineEmail onClick={()=>  {
-                                            modalRef.current?.showModal();
-                                            setCurrentFileId(file.id);
-                                        }} size={35} />
+                                    <MdOutlineEmail onClick={() => {
+                                        modalRef.current?.showModal();
+                                        setCurrentFileId(file.id);
+                                    }} size={35} />
                                 </div>
                             </div>
                             <dialog ref={modalRef} className="modal">
-                            <div className= {`modal-box ${styles.modelBox}`}>
-                                <form method="dialog">
-                                <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-                                </form>
-                                <h3 className="font-bold text-lg">Share {_shareName}</h3>
-                                <div>
-                                    <div className={styles.shareBox}>
-                                        <input type="email" required={true} placeholder="Email" value={email} onChange={(event) => setEmail(event.target.value)}  className={`input input-bordered w-full max-w-xs ${styles.shareInput}`} />
-                                        <button onClick={() => {
-                                            EmailChange;
-                                            SharedEmail();
-                                        }} className="px-5">Share</button>
+                                <div className={`modal-box ${styles.modelBox}`}>
+                                    <form method="dialog">
+                                        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                                    </form>
+                                    <h3 className="font-bold text-lg">Share {_shareName}</h3>
+                                    <div>
+                                        <div className={styles.shareBox}>
+                                            <input type="email" required={true} placeholder="Email" value={email} onChange={(event) => setEmail(event.target.value)} className={`input input-bordered w-full max-w-xs ${styles.shareInput}`} />
+                                            <button onClick={() => {
+                                                EmailChange();
+                                                SharedEmail();
+                                            }} className="px-5">Share</button>
+                                        </div>
+                                        {errorMessage === "" ? <></> : <p className={styles.errorMessage}>{errorMessage}</p>}
                                     </div>
-                                    {errorMessage === "" ? <></> : <p className={styles.errorMessage}>{errorMessage}</p>}
                                 </div>
-                            </div>
                             </dialog>
                         </div>
                     )
                 })
             }
         </div>
-
     )
 }

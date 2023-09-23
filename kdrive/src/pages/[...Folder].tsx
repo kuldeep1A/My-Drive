@@ -10,7 +10,6 @@ export default function Folder() {
     const session = useFetchSession();
     const router = useRouter();
     const parentid: string | undefined | string[] = router?.query?.id;
-    
     return (
         <>
             <Head>
@@ -25,11 +24,11 @@ export default function Folder() {
                 <NavBar />
                 {/* <UploadX parentId={typeof parentid === 'string' ? parentid : ''} /> */}
                 {/* <ShowFilesx parentId={typeof parentid === 'string' ? parentid : ''} /> */}
-                {session ? 
-                <>
-                    <UploadX parentId={parentid as string} />
-                    <ShowFilesx parentId={parentid as string} />
-                </> : <></> }
+                {session ?
+                    <>
+                        <UploadX parentId={parentid as string} />
+                        <ShowFilesx parentId={parentid as string} />
+                    </> : <></>}
             </main>
         </>
     )
