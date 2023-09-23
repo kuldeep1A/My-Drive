@@ -15,4 +15,3 @@ const MyApp: AppType<{ session: Session | null }> = ({
   );
 };
 export default MyApp;
-

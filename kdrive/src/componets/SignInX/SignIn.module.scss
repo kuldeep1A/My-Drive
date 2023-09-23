@@ -8,17 +8,21 @@
     -webkit-user-drag: none;
     -webkit-user-select: none;
 }
+
 .KDrive {
     box-shadow: inset 20px 0px 10px 1px hsl(262, 62.01%, 63.99%);
     border-radius: 50px;
-    background-color: hsl(262deg 81.62% 26.81%);;
+    background-color: hsl(262deg 81.62% 26.81%);
+    ;
     position: relative;
     // box-shadow: 10px 10px 10px 5px inset, 10px 10px 10px 5px hsl(262.11deg 80.85% 18.43%) inset;
 }
+
 .KDrive_child {
     position: relative;
     top: -8px;
 }
+
 @media screen and (max-width: 640px) {
     .KDrive_child {
         position: relative;
