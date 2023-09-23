@@ -1,47 +1,57 @@
 .imageLink {
-    width: auto;
-    height: auto;
-    object-fit: cover;
+  width: auto;
+  height: auto;
+  object-fit: cover;
 }
+
 .filename {
   overflow-x: hidden;
   overflow-y: hidden;
   text-overflow: inherit;
 }
+
 .FoldersFiles {
   margin-bottom: -40px;
 }
+
 .file {
-    width: 180px;
-    height: 180px;
-    background-color: whitesmoke;
-    border-radius: 10px;
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
+  position: relative;
+  width: 180px;
+  height: 180px;
+  background-color: whitesmoke;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }
+
 .email {
+  width: 35px;
   position: relative;
   top: -35px;
   right: -142px;
   cursor: pointer;
   z-index: 100;
 }
+
 .modelBox {
   background-color: white;
   color: black;
 }
+
 .shareInput {
   background-color: whitesmoke;
 }
+
 .shareBox {
   display: flex;
   flex-direction: row;
   gap: 10px;
 }
+
 .All_Files {
   width: 100%;
   padding: 10px;
@@ -58,8 +68,15 @@ $desktop: 1370px;
 $largeDesktop: 1450px;
 
 
-@media screen and (max-width: $x){
+@media screen and (max-width: $x) {
+  .icons {
+    position: absolute;
+    left: 10px;
+    top: 4px;
+  }
+  
   .file {
+    position: relative;
     width: 300px !important;
     height: 50px !important;
     background-color: whitesmoke;
@@ -70,37 +87,46 @@ $largeDesktop: 1450px;
     flex-wrap: wrap;
     gap: 10px;
   }
+
   .manageIcon {
     display: flex;
     flex-direction: row;
-    position: relative;
-    left: -80px;
   }
+
   .email {
     top: -42px !important;
     left: 250px !important;
-  } 
+    right: 0px !important;
+  }
 }
 
 @media screen and (min-width: $x) and (max-width: $mobile) {
+  .icons {
+    position: absolute;
+    left: 10px;
+    top: 4px;
+  }
+
   .manageIcon {
     display: flex;
     flex-direction: row;
-    position: relative;
-    top: 0px;
-    left: -94px;
   }
 }
+
 @media screen and (max-width: $mobile) {
   .email {
     top: -42px;
     left: 282px;
-  } 
+    right: 0px !important;
+  }
+
   .icon {
     height: 40px !important;
     width: 40px !important;
   }
+
   .file {
+    position: relative;
     width: 350px;
     height: 50px;
     background-color: whitesmoke;
@@ -111,6 +137,7 @@ $largeDesktop: 1450px;
     flex-wrap: wrap;
     gap: 10px;
   }
+
   .All_Files {
     width: 100%;
     margin: auto;
@@ -123,7 +150,7 @@ $largeDesktop: 1450px;
   }
 }
 
-@media screen and (min-width: $mobile) and (max-width: ($mobile + 90px)){
+@media screen and (min-width: $mobile) and (max-width: ($mobile + 90px)) {
   .All_Files {
     margin-left: 70px;
     grid-template-columns: repeat(2, auto) !important;
@@ -164,7 +191,7 @@ $largeDesktop: 1450px;
   .All_Files {
     margin-left: 65px;
     grid-template-columns: repeat(3, auto);
-  }  
+  }
 }
 
 @media screen and (min-width: $tablet) {
@@ -175,26 +202,30 @@ $largeDesktop: 1450px;
     display: grid;
     gap: 10px;
     justify-content: flex-start;
-    grid-template-columns: repeat(4, auto); 
+    grid-template-columns: repeat(4, auto);
   }
 }
+
 @media screen and (min-width: 850px) and (max-width: 950px) {
   .All_Files {
     margin-left: 40px;
     grid-template-columns: repeat(4, auto);
-  }  
+  }
 }
+
 @media screen and (min-width: 950px) and (max-width: 1000px) {
   .All_Files {
     grid-template-columns: repeat(5, auto);
-  }  
+  }
 }
+
 @media screen and (min-width: 1000px) and (max-width: 1090px) {
   .All_Files {
     margin-left: 20px;
     grid-template-columns: repeat(5, auto);
-  }  
+  }
 }
+
 @media screen and (min-width: 1090px) and (max-width: 1140px) {
   .All_Files {
     margin-left: 80px;
@@ -270,5 +301,3 @@ $largeDesktop: 1450px;
     grid-template-columns: repeat(8, auto);
   }
 }
-
-  

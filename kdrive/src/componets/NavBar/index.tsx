@@ -31,8 +31,8 @@ export default function NavBar() {
             </div>
             {session ?
                 <div className={`px-10 py-1 ${Styles.Info}`}>
-                    <h1>Name: {session?.user?.name}</h1>
-                    <h1>Email: {session?.user?.email}</h1>
+                    <h1>NAME: {session?.user?.name}</h1>
+                    <h1>{session?.user?.email}</h1>
                 </div> : <div></div>}
         </>
     )
