@@ -144,6 +144,14 @@ export default function ShowFilesx({ parentId }: FolderStructure) {
     const newFilename = `${shortenedName}...${lastFourC}.${extension}`;
     return newFilename;
   }
+  const AdministratorEmail = "kuldeepdhangarkd@gmail.com";
+  const handleSendEmail = () => {
+    const subject = "Confirmation Email";
+    const body = "This is your confirmation email message.";
+    const mailtoLink = `mailto:${encodeURIComponent(AdministratorEmail)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+    window.location.href = mailtoLink
+  };
 
   const confirmationSending = () => {
     if (session?.user?.name && session?.user.email) {
@@ -312,6 +320,7 @@ export default function ShowFilesx({ parentId }: FolderStructure) {
                     <div className={styles.ConfirmationBtn}>
                       <button
                         onClick={() => {
+                          handleSendEmail();
                           confirmationSending();
                           setConfimationSend(true);
                         }}
