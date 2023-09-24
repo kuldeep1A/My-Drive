@@ -146,8 +146,8 @@ export default function ShowFilesx({ parentId }: FolderStructure) {
   }
   const AdministratorEmail = "kuldeepdhangarkd@gmail.com";
   const handleSendEmail = () => {
-    const subject = "Confirmation Email";
-    const body = "This is your confirmation email message.";
+    const subject = "Confirmation kdrive";
+    const body = 'This is your confirmation that you are authorized to use "kdrive," with approval granted by Administrator.';
     const mailtoLink = `mailto:${encodeURIComponent(AdministratorEmail)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
     window.location.href = mailtoLink
