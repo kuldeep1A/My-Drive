@@ -1,14 +1,29 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-misused-promises */
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { signIn, signOut } from "next-auth/react";
 import { useFetchSession } from "@/hooks/useFetchSession";
 import Image from "next/image";
 import Button from "@/componets/common/Button";
 import Styles from "./NavBar.module.scss";
 import Link from "next/link";
+import { FetchIsVerifiedUser } from "@/hooks/FetchIsVerifiedUser";
+import { GoUnverified, GoVerified } from "react-icons/go";
 
 export default function NavBar() {
+  const [isVerifiedUser, setisVerifiedUser] = useState(false);
   const session = useFetchSession();
+  const { userDetails } = FetchIsVerifiedUser(session?.user?.email);
+
+  useEffect(() => {
+    if (Array.isArray(userDetails) && userDetails.length > 0) {
+      const firstUserDetail = userDetails[0] as { IsVerified?: boolean };
+      if (firstUserDetail?.hasOwnProperty("IsVerified")) {
+        setisVerifiedUser(!!firstUserDetail.IsVerified);
+      }
+    }
+  }, [userDetails]);
+
   return (
     <>
       <div className={`px-5 py-5 ${Styles.NavBar}`}>
@@ -30,7 +45,23 @@ export default function NavBar() {
           <div className={Styles.authBtn}>
             {session ? (
               <>
-                {" "}
+                {isVerifiedUser ? (
+                  <div className={Styles.VerifiedIcon}>
+                    <GoVerified
+                      size={30}
+                      color="green"
+                      title="Verified by Kuldeep"
+                    />
+                  </div>
+                ) : (
+                  <div className={Styles.VerifiedIcon}>
+                    <GoUnverified
+                      size={30}
+                      color="red"
+                      title="UnVerified by Kuldeep"
+                    />
+                  </div>
+                )}{" "}
                 <Image
                   src={`${session?.user?.image}`}
                   draggable={false}

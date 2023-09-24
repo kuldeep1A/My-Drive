@@ -12,9 +12,11 @@ export default function FileUpload(
   setVisibleL: Function,
   parentId: string,
   UserEmail: string | undefined | null,
-) {
-  const storageRef = ref(storage, `files/${file.name}`);
-  const uploadTask = uploadBytesResumable(storageRef, file as Blob);
+  Name: string | undefined | null,
+) {  
+  const folderPath = `files/${Name}/${file.name}`;
+  const folderRef = ref(storage, folderPath);
+  const uploadTask = uploadBytesResumable(folderRef, file);
   uploadTask.on(
     "state_changed",
     (sanpshot) => {

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./ShowFilesx.module.scss";
 import { FetchFiles } from "@/hooks/FetchFiles";
 import { FaJava, FaPython } from "react-icons/fa";
@@ -22,7 +22,8 @@ import {
 } from "react-icons/bs";
 import { useRouter } from "next/router";
 import { useFetchSession } from "@/hooks/useFetchSession";
-import { ShareFiles } from "@/API/Firestorex";
+import { FetchIsVerifiedUser } from "@/hooks/FetchIsVerifiedUser";
+import { ShareFiles, isVerified } from "@/API/Firestorex";
 
 export default function ShowFilesx({ parentId }: FolderStructure) {
   const session = useFetchSession();
@@ -30,7 +31,9 @@ export default function ShowFilesx({ parentId }: FolderStructure) {
   const [currentFileId, setCurrentFileId] = useState("");
   const [email, setEmail] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [isVerifiedUser, setisVerifiedUser] = useState(false);
   const { fileList } = FetchFiles(parentId, session?.user?.email);
+  const { userDetails } = FetchIsVerifiedUser(session?.user?.email)
   const router = useRouter();
   const OpenFile = (filelink: string, isFolder: boolean) => {
     if (!isFolder) {
@@ -134,118 +137,137 @@ export default function ShowFilesx({ parentId }: FolderStructure) {
     if (!__name || !extension || name.length < maxLength) {
       return name;
     }
-    
-    const keepNameLength = (maxLength - 5) - extension.length - 1;
+    const keepNameLength = maxLength - 5 - extension.length - 1;
     const shortenedName = __name.slice(0, keepNameLength);
     const lastFourC = __name.slice(-4);
     const newFilename = `${shortenedName}...${lastFourC}.${extension}`;
     return newFilename;
   }
+  
+
+  useEffect(() => {
+    if (Array.isArray(userDetails) && userDetails.length > 0) {
+      const firstUserDetail = userDetails[0] as { IsVerified?: boolean };
+      if (firstUserDetail?.hasOwnProperty("IsVerified")) {
+        setisVerifiedUser(!!firstUserDetail.IsVerified);
+      }
+    }
+  }, [userDetails]);
   return (
     <div className={styles.All_Files}>
-      {fileList.map(
-        (
-          file: {
-            imageLink: "";
-            fileName: "";
-            isFolder: false;
-            folderName: "";
-            id: "";
-          },
-          index: number,
-        ) => {
-          const keyx = `${file.id}-${index}`;
-          return (
-            <div key={keyx} className={styles.FoldersFiles}>
-              <div>
-                {
-                  <div
-                    className={styles.file}
-                    onClick={() => {
-                      OpenFile(file.imageLink, file.isFolder);
-                    }}
-                  >
-                    <div className={styles.manageIcon}>
-                      <div className={styles.icons}>
-                        {file.isFolder
-                          ? createFolder(file.folderName, file.id)
-                          : CheckType(file.fileName)}
-                      </div>
-                      <div
-                        data-filename={"___shareName"}
-                        className={styles.filename}
-                      >
-                        <div>
-                          {window.innerWidth >= 480 ? (
-                            file.fileName !== undefined ? (
-                              shorten_filename(file.fileName, 20)
+      {isVerifiedUser ? (
+        fileList.map(
+          (
+            file: {
+              imageLink: "";
+              fileName: "";
+              isFolder: false;
+              folderName: "";
+              id: "";
+            },
+            index: number,
+          ) => {
+            const keyx = `${file.id}-${index}`;
+            return (
+              <div key={keyx} className={styles.FoldersFiles}>
+                <div>
+                  {
+                    <div
+                      className={styles.file}
+                      onClick={() => {
+                        OpenFile(file.imageLink, file.isFolder);
+                      }}
+                    >
+                      <div className={styles.manageIcon}>
+                        <div className={styles.icons}>
+                          {file.isFolder
+                            ? createFolder(file.folderName, file.id)
+                            : CheckType(file.fileName)}
+                        </div>
+                        <div
+                          data-filename={"___shareName"}
+                          className={styles.filename}
+                        >
+                          <div>
+                            {window.innerWidth >= 480 ? (
+                              file.fileName !== undefined ? (
+                                shorten_filename(file.fileName, 20)
+                              ) : file.folderName !== undefined ? (
+                                shorten_filename(file.folderName, 20)
+                              ) : (
+                                <></>
+                              )
+                            ) : file.fileName !== undefined ? (
+                              shorten_filename(file.fileName, 27)
                             ) : file.folderName !== undefined ? (
-                              shorten_filename(file.folderName, 20)
+                              shorten_filename(file.folderName, 27)
                             ) : (
                               <></>
-                            )
-                          ) : file.fileName !== undefined ? (
-                            shorten_filename(file.fileName, 27)
-                          ) : file.folderName !== undefined ? (
-                            shorten_filename(file.folderName, 27)
-                          ) : (
-                            <></>
-                          )}
+                            )}
+                          </div>
                         </div>
                       </div>
+                      {/* {file.imageLink === "" ? <></> : <Image className={styles.immageLink} src={file.imageLink} alt="icon" width={300} height={300} priority={true} /> } */}
                     </div>
-                    {/* {file.imageLink === "" ? <></> : <Image className={styles.immageLink} src={file.imageLink} alt="icon" width={300} height={300} priority={true} /> } */}
+                  }
+                  <div className={styles.email} onClick={fetchName}>
+                    <MdOutlineEmail
+                      onClick={() => {
+                        modalRef.current?.showModal();
+                        setCurrentFileId(file.id);
+                      }}
+                      size={35}
+                    />
                   </div>
-                }
-                <div className={styles.email} onClick={fetchName}>
-                  <MdOutlineEmail
-                    onClick={() => {
-                      modalRef.current?.showModal();
-                      setCurrentFileId(file.id);
-                    }}
-                    size={35}
-                  />
                 </div>
-              </div>
-              <dialog ref={modalRef} className="modal">
-                <div className={`modal-box ${styles.modelBox}`}>
-                  <form method="dialog">
-                    <button className="btn btn-circle btn-ghost btn-sm absolute right-2 top-2">
-                      ✕
-                    </button>
-                  </form>
-                  <h3 className="text-lg font-bold">Share {_shareName}</h3>
-                  <div>
-                    <div className={styles.shareBox}>
-                      <input
-                        type="email"
-                        required={true}
-                        placeholder="Email"
-                        value={email}
-                        onChange={(event) => setEmail(event.target.value)}
-                        className={`input input-bordered w-full max-w-xs ${styles.shareInput}`}
-                      />
-                      <button
-                        onClick={() => {
-                          EmailChange();
-                          SharedEmail();
-                        }}
-                        className="px-5"
-                      >
-                        Share
+                <dialog ref={modalRef} className="modal">
+                  <div className={`modal-box ${styles.modelBox}`}>
+                    <form method="dialog">
+                      <button className="btn btn-circle btn-ghost btn-sm absolute right-2 top-2">
+                        ✕
                       </button>
+                    </form>
+                    <h3 className="text-lg font-bold">Share {_shareName}</h3>
+                    <div>
+                      <div className={styles.shareBox}>
+                        <input
+                          type="email"
+                          required={true}
+                          placeholder="Email"
+                          value={email}
+                          onChange={(event) => setEmail(event.target.value)}
+                          className={`input input-bordered w-full max-w-xs ${styles.shareInput}`}
+                        />
+                        <button
+                          onClick={() => {
+                            EmailChange();
+                            SharedEmail();
+                          }}
+                          className="px-5"
+                        >
+                          Share
+                        </button>
+                      </div>
+                      {errorMessage === "" ? (
+                        <></>
+                      ) : (
+                        <p className={styles.errorMessage}>{errorMessage}</p>
+                      )}
                     </div>
-                    {errorMessage === "" ? (
-                      <></>
-                    ) : (
-                      <p className={styles.errorMessage}>{errorMessage}</p>
-                    )}
                   </div>
-                </div>
-              </dialog>
+                </dialog>
+              </div>
+            );
+          },
+        )
+      ) : (
+        <main>
+          <div>
+            <div>
+              <div>Your account <b>requires</b> verification by an administrator to access this application. Please send a confirmation email to Administrator.</div>
             </div>
-          );
-        },
+          </div>
+        </main>
       )}
     </div>
   );

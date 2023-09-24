@@ -10,6 +10,7 @@ import {
 } from "firebase/firestore";
 const files = collection(database, "files");
 const Empty_no = collection(database, "empty_no");
+const isVerifiedUserC = collection(database, "isVerifiedUser");
 export const addFiles = async (
   imageLink: string,
   fileName: string,
@@ -74,3 +75,18 @@ export const addEmptyFolder = async (Empty_folder: { EmptyNo: number }) => {
     alert(error);
   }
 };
+export const isVerified = async (User: {
+  Name: string;
+  UserEmail: string;
+  isVerified: boolean;
+}) => {
+  try {
+    await addDoc(isVerifiedUserC, {
+      Name: User.Name,
+      UserEmail: User.UserEmail,
+      isVerified: User.isVerified,
+    })
+  } catch (error) {
+    alert(error);
+  }
+}
