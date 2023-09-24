@@ -7,19 +7,20 @@ import { useState } from "react";
 const isVerifiedUserC = collection(database, "isVerifiedUser");
 export const FetchIsVerifiedUser = (UserEmail: string | undefined | null) => {
   const [userDetails, setuserDetails] = useState([{}]);
-  
   const getUserDetails = () => {
     if (UserEmail) {
       onSnapshot(isVerifiedUserC, (response) => {
         setuserDetails(
-            response.docs.map((item) => {
-            return { ...item.data() };
-        }).filter((item: any) => item.UserEmail == UserEmail)
+          response.docs
+            .map((item) => {
+              return { ...item.data() };
+            })
+            .filter((item: any) => item.UserEmail == UserEmail),
         );
       });
     }
   };
   getUserDetails();
-  
+
   return { userDetails };
 };

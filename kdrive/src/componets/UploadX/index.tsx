@@ -1,8 +1,8 @@
-import React, { useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./UploadX.module.scss";
 import Button from "../common/Button";
 import FileUpload from "@/API/FileUploadx";
-import { addEmptyFolder, addFolder} from "@/API/Firestorex";
+import { addEmptyFolder, addFolder } from "@/API/Firestorex";
 import { FetchEmptyFolder } from "@/hooks/FetchEmptyFolder";
 import { useFetchSession } from "@/hooks/useFetchSession";
 import { FetchIsVerifiedUser } from "@/hooks/FetchIsVerifiedUser";
@@ -53,7 +53,7 @@ export default function UploadX({ parentId }: FolderStructure) {
       );
     }
   };
-  const { userDetails } = FetchIsVerifiedUser(session?.user?.email)
+  const { userDetails } = FetchIsVerifiedUser(session?.user?.email);
 
   useEffect(() => {
     if (Array.isArray(userDetails) && userDetails.length > 0) {
@@ -63,7 +63,7 @@ export default function UploadX({ parentId }: FolderStructure) {
       }
     }
   }, [userDetails]);
-  
+
   return (
     <div className={styles.main}>
       {isVerifiedUser ? (

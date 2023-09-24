@@ -146,19 +146,16 @@ export default function ShowFilesx({ parentId }: FolderStructure) {
   }
 
   const confirmationSending = () => {
-
     if (session?.user?.name && session?.user.email) {
       const User = {
         Name: session?.user?.name,
         UserEmail: session?.user?.email,
         IsVerified: false,
         IsConfirmationSend: true,
-      }
+      };
       void isVerified(User);
     }
-
-  }
-
+  };
 
   useEffect(() => {
     if (Array.isArray(userDetails) && userDetails.length > 0) {
@@ -297,20 +294,29 @@ export default function ShowFilesx({ parentId }: FolderStructure) {
                 <div>
                   {isConfimationSend ? (
                     <>
-                    <div className={styles.SendConfirmation}>
-                      <div className={styles.sdf}>
-                        <span>
-                          <p className={styles.ConfirmationInfo}>If your send email successfully to <b className={styles.sdf1}>Admin.</b> Wait For Confirmation. If Administrator <b className={styles.sdf1}>Conform</b> your Account you can use this application</p>
-                        </span>
+                      <div className={styles.SendConfirmation}>
+                        <div className={styles.sdf}>
+                          <span>
+                            <p className={styles.ConfirmationInfo}>
+                              If your send email successfully to{" "}
+                              <b className={styles.sdf1}>Admin.</b> Wait For
+                              Confirmation. If Administrator{" "}
+                              <b className={styles.sdf1}>Conform</b> your
+                              Account you can use this application
+                            </p>
+                          </span>
+                        </div>
                       </div>
-                    </div>
                     </>
                   ) : (
                     <div className={styles.ConfirmationBtn}>
-                      <button onClick={() => {
-                        confirmationSending();
-                        setConfimationSend(true);
-                      }} className="btn btn-success btn-sm">
+                      <button
+                        onClick={() => {
+                          confirmationSending();
+                          setConfimationSend(true);
+                        }}
+                        className="btn btn-success btn-sm"
+                      >
                         Confirmation Send
                       </button>
                     </div>
