@@ -3,7 +3,36 @@
   height: auto;
   object-fit: cover;
 }
-
+.main {
+  position: relative;
+  top: 100px;
+}
+.Info {
+  font-size: 20px;
+}
+.sdf {
+  width: 90%;
+  margin: auto;
+}
+.sdf1 {
+  font-size: 15px;
+}
+.ConfirmationInfo {
+  margin-top: 40px;
+  font-size: small;
+  font-family: 'Courier New', Courier, monospace;
+}
+.Confirmation {
+  width: 80%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+}
+.ConfirmationBtn {
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+}
 .icons {
   display: flex;
   justify-content: center;
@@ -73,6 +102,29 @@ $tablet: 770px;
 $desktop: 1370px;
 $largeDesktop: 1450px;
 
+@media screen and (min-width: 800px) {
+  .Info {
+    font-size: 30px;
+  }
+  .ConfirmationInfo {
+    font-size: 15px;
+  }
+  .sdf1 {
+    font-size: 15px;
+  }
+}
+
+@media screen and (min-width: 1100px) {
+  .Info {
+    font-size: 40px;
+  }
+  .ConfirmationInfo {
+    font-size: 20px;
+  }
+  .sdf1 {
+    font-size: 20px;
+  }
+}
 
 @media screen and (max-width: $x) {
   .icons {

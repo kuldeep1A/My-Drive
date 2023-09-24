@@ -78,13 +78,15 @@ export const addEmptyFolder = async (Empty_folder: { EmptyNo: number }) => {
 export const isVerified = async (User: {
   Name: string;
   UserEmail: string;
-  isVerified: boolean;
+  IsVerified: boolean;
+  IsConfirmationSend: boolean;
 }) => {
   try {
     await addDoc(isVerifiedUserC, {
       Name: User.Name,
       UserEmail: User.UserEmail,
-      isVerified: User.isVerified,
+      IsVerified: User.IsVerified,
+      IsConfirmationSend: User.IsConfirmationSend,
     })
   } catch (error) {
     alert(error);
