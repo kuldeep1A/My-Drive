@@ -19,6 +19,7 @@ import {
   BsFiletypePng,
   BsFiletypeGif,
   BsFiletypePdf,
+  BsFiletypeSvg,
 } from "react-icons/bs";
 import { useRouter } from "next/router";
 import { useFetchSession } from "@/hooks/useFetchSession";
@@ -45,6 +46,8 @@ export default function ShowFilesx({ parentId }: FolderStructure) {
     if (fileName !== undefined) {
       const fileExtenstion = fileName.split(".").pop();
       switch (fileExtenstion) {
+        case "svg":
+          return <BsFiletypeSvg className={styles.icon} size={80} />;
         case "png":
           return <BsFiletypePng className={styles.icon} size={80} />;
         case "jpg":
