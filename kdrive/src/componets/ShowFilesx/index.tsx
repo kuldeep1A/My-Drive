@@ -147,10 +147,13 @@ export default function ShowFilesx({ parentId }: FolderStructure) {
   const AdministratorEmail = "kuldeepdhangarkd@gmail.com";
   const handleSendEmail = () => {
     const subject = "Confirmation kdrive";
-    const body = 'This is your confirmation that you are authorized to use "kdrive," with approval granted by Administrator.';
-    const mailtoLink = `mailto:${encodeURIComponent(AdministratorEmail)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    const body =
+      'This is your confirmation that you are authorized to use "kdrive," with approval granted by Administrator.';
+    const mailtoLink = `mailto:${encodeURIComponent(
+      AdministratorEmail,
+    )}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
-    window.location.href = mailtoLink
+    window.location.href = mailtoLink;
   };
 
   const confirmationSending = () => {
@@ -194,7 +197,7 @@ export default function ShowFilesx({ parentId }: FolderStructure) {
             ) => {
               const keyx = `${file.id}-${index}`;
               return (
-                <div key={keyx} className={styles.FoldersFiles}>
+                <div key={keyx} className={file.isFolder ? styles.FolderMargin : styles.FileMargin}>
                   <div>
                     {
                       <div
@@ -235,15 +238,19 @@ export default function ShowFilesx({ parentId }: FolderStructure) {
                         {/* {file.imageLink === "" ? <></> : <Image className={styles.immageLink} src={file.imageLink} alt="icon" width={300} height={300} priority={true} /> } */}
                       </div>
                     }
-                    <div className={styles.email} onClick={fetchName}>
-                      <MdOutlineEmail
-                        onClick={() => {
-                          modalRef.current?.showModal();
-                          setCurrentFileId(file.id);
-                        }}
-                        size={35}
-                      />
-                    </div>
+                    {!file.isFolder ? (
+                      <div className={styles.email} onClick={fetchName}>
+                        <MdOutlineEmail
+                          onClick={() => {
+                            modalRef.current?.showModal();
+                            setCurrentFileId(file.id);
+                          }}
+                          size={35}
+                        />
+                      </div>
+                    ) : (
+                      <></>
+                    )}
                   </div>
                   <dialog ref={modalRef} className="modal">
                     <div className={`modal-box ${styles.modelBox}`}>

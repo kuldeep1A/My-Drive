@@ -53,8 +53,12 @@
   text-overflow: inherit;
 }
 
-.FoldersFiles {
-  margin-bottom: -40px;
+.FolderMargin{
+  margin-bottom: -4px;
+}
+.FileMargin {
+  margin-bottom: -4px;
+  height: 50px;
 }
 
 .file {
@@ -185,7 +189,7 @@ $largeDesktop: 1450px;
 @media screen and (max-width: $mobile) {
   .email {
     top: -42px;
-    left: 282px;
+    left: 300px;
     right: 0px !important;
   }
   .main {
