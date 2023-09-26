@@ -20,6 +20,7 @@ import {
   BsFiletypeGif,
   BsFiletypePdf,
   BsFiletypeSvg,
+  BsFiletypeAac,
 } from "react-icons/bs";
 import { useRouter } from "next/router";
 import { useFetchSession } from "@/hooks/useFetchSession";
@@ -68,6 +69,8 @@ export default function ShowFilesx({ parentId }: FolderStructure) {
           return <BsFiletypeMp4 className={styles.icon} size={80} />;
         case "mp3":
           return <BsFiletypeMp3 className={styles.icon} size={80} />;
+        case "aac":
+          return <BsFiletypeAac className={styles.icon} size={80} />;
         case "py":
           return <FaPython className={styles.icon} size={80} />;
         case "java":
