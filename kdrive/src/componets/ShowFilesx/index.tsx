@@ -152,10 +152,10 @@ export default function ShowFilesx({ parentId }: FolderStructure) {
   }
   const AdministratorEmail = "kuldeepdhangarkd@gmail.com";
   const handleSendEmail = () => {
-    const subject = "Confirmation kdrive";
-    const body =
+    const subjectx = "Confirmation kdrive";
+    const bodyx =
       'This is your confirmation that you are authorized to use "kdrive," with approval granted by Administrator.';
-    const mailtoLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(AdministratorEmail)}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    const mailtoLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(AdministratorEmail)}&subject=${encodeURIComponent(subjectx)}&body=${encodeURIComponent(bodyx)}`;
 
     window.open(mailtoLink);
   };
