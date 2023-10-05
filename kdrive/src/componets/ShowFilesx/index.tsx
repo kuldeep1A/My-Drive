@@ -155,9 +155,7 @@ export default function ShowFilesx({ parentId }: FolderStructure) {
     const subject = "Confirmation kdrive";
     const body =
       'This is your confirmation that you are authorized to use "kdrive," with approval granted by Administrator.';
-    const mailtoLink = `mailto:${encodeURIComponent(
-      AdministratorEmail,
-    )}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    const mailtoLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(recipientEmail)}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
     window.location.href = mailtoLink;
   };
