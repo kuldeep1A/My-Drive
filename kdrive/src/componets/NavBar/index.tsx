@@ -79,7 +79,6 @@ export default function NavBar() {
             ) : (
               <Button
                 onClick={() => signIn()}
-                btnClass={"btn-primary"}
                 title="Sign In"
               />
             )}

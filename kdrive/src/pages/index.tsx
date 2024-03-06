@@ -13,7 +13,7 @@ export default function Home() {
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
         <link rel="manifest" href="/site.webmanifest" />
       </Head>
-      <main className="min-h-screen select-none bg-gradient-to-b from-[#2e026d] to-[#15162c]">
+      <main className="min-h-screen select-none ed-Home to-[#15162c]">
         <HomeX />
       </main>
     </>

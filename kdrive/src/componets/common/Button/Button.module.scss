@@ -1,3 +1,8 @@
 .commonBtn {
     margin-left: 10px;
+    border-color: transparent !important;
+    background-color: black;
+    --tw-text-opacity: 1;
+    color: hsl(var(--pc) / var(--tw-text-opacity));
+    outline-color: hsl(var(--p) / 1);
 }

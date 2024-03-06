@@ -16,7 +16,7 @@ export default function Folder() {
         <title>K Drive</title>
         <meta name="description" content="K-Drive storage" />
       </Head>
-      <main className="min-h-screen select-none bg-gradient-to-b from-[#2e026d] to-[#15162c]">
+      <main className="min-h-screen select-none ed-Home to-[#15162c]">
         <NavBar />
         {/* <UploadX parentId={typeof parentid === 'string' ? parentid : ''} /> */}
         {/* <ShowFilesx parentId={typeof parentid === 'string' ? parentid : ''} /> */}
